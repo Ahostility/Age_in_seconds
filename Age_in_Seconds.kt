@@ -1,35 +1,19 @@
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-//import toString
-import java.time.LocalDateTime
+//mport java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.*
-//Hello
-fun _date(): LocalDate{
+//import java.time.Period
 
-    val year = readLine()!!.toInt()
-    val month = readLine()!!.toInt()
-    val day = readLine()!!.toInt()
-   // val hour = readLine()!!.toInt()
-   // val minutes = readLine()!!.toInt()
-   // val seconds = readLine()!!.toInt()
-    val date = LocalDate.of(year, month, day)
+
+fun _date(): LocalDate{//Функция принимает данные о дате рождения //Ункция возвращает тип времени
+    val year = readLine()!!.toInt()//Вводим год рождеия
+    val month = readLine()!!.toInt()//Вводим месяц рождения
+    val day = readLine()!!.toInt()//Вводим день рождения
+    //val hour = readLine()!!.toInt()//Вводим час рождения
+   // val minutes = readLine()!!.toInt()//Вводим минуты рождения
+   // val seconds = readLine()!!.toInt()//Вводим секунды рождения
+    val date = LocalDate.of(year,month, day)
     return date
 }
-
-
-/*fun Date.toString(newformat: String, locale: Locale = Locale.getDefault()):String{
-    val formatter = SimpleDateFormat(newformat,locale)
-    return formatter.format(this)
-}
-
-
-
-fun getCurrentDateTime():Date{
-    return Calendar.getInstance().time
-}*/
 
 fun standDate(born:LocalDate/*,time:LocalDateTime*/):Int{
     val newday = LocalDate.now()
@@ -48,36 +32,19 @@ fun standDate(born:LocalDate/*,time:LocalDateTime*/):Int{
         println(lastyear.year)
     }
     sumday = sumday - born.dayOfYear
-
-
-    //var sumday = (newday.year - born.year)*born
-   // val newdays = LocalDateTime.now()
-    //val age = Period.between(born, newday)
-    //return dayinyear
     return sumday
-   // return age
 }
 
-
-fun main(){
-    val age = _date()
-    val youdate = LocalDate.of(age.year,age.month,age.dayOfMonth)
+fun main() {
+    val age = _date()//В переменную возраст записываетм дату рождения//
+    val youdate = LocalDate.of(age.year, age.month, age.dayOfMonth)//Передаем функции год, месяц и дней в месяце
+    println(age.dayOfYear)//дни с начала этого года
     val nowday = LocalTime.now()
-    //println("${nowday.hour},${nowday.minute},${nowday.second}")
-    //println(nowday)
-    //var youborn = LocalDateTime.of(0,0,0,age.hour,age.minute,age.second)
-    println(age.dayOfYear)
-   // println(youdate)
-   // val example = LocalDate.of(2000,12,31)
-  //  println(example.year)
-   println(" it is sum days ${standDate(youdate)}, it is ${24*60*60*standDate(youdate)+nowday.hour*3600+nowday.minute*60+nowday.second} seconds")
-    //println(example.dayOfYear)
-    //println("Us age is ${Age()}")
-        /*var date1 = LocalDateTime.parse("2018-12-01")
-    var date2 = LocalDate.parse("2017-11-02")
-    println(date1)*/
-    //val data = getCurrentDateTime()
-    //val dataInString = data.toString("dd/MM/yyyy HH:mm:ss")
-    //println(data)
-    //println(dataInString)
+    println("${nowday.hour},${nowday.minute},${nowday.second}")
+    println(nowday)
+    println(" it is sum days ${standDate(youdate)}, it is ${24*60*60*standDate(youdate)+nowday.hour*3600+nowday.minute*60+nowday.second} seconds")
+    // val day2000 = LocalDate.of(2000, 12, 31)// Это пример обращения к объекту день, который хрнит дату
+    //println("${day2000.year},${day2000.month},${day2000.dayOfMonth}")
+//    var youborn = LocalDateTime.of(0,0,0,age.hour,age.minute,age.second)//эта штука выводит 0 год 0 месяц(если такой существует),0день
+//    println(youdate)//время в минутах, секундах, и часах
 }
