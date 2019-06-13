@@ -46,4 +46,5 @@ fun main() {
     //println("${day2000.year},${day2000.month},${day2000.dayOfMonth}")
 //    var youborn = LocalDateTime.of(0,0,0,age.hour,age.minute,age.second)//эта штука выводит 0 год 0 месяц(если такой существует),0день
 //    println(youdate)//время в минутах, секундах, и часа
+
 }
