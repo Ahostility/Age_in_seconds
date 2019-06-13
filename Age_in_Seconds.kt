@@ -34,7 +34,6 @@ fun standDate(born:LocalDate/*,time:LocalDateTime*/):Int{
     sumday = sumday - born.dayOfYear
     return sumday
 }
-
 fun main() {
     val age = _date()//В переменную возраст записываетм дату рождения//
     val youdate = LocalDate.of(age.year, age.month, age.dayOfMonth)//Передаем функции год, месяц и дней в месяце
@@ -46,5 +45,5 @@ fun main() {
     // val day2000 = LocalDate.of(2000, 12, 31)// Это пример обращения к объекту день, который хрнит дату
     //println("${day2000.year},${day2000.month},${day2000.dayOfMonth}")
 //    var youborn = LocalDateTime.of(0,0,0,age.hour,age.minute,age.second)//эта штука выводит 0 год 0 месяц(если такой существует),0день
-//    println(youdate)//время в минутах, секундах, и часах
+//    println(youdate)//время в минутах, секундах, и часа
 }
