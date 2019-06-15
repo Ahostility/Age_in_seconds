@@ -132,8 +132,20 @@ fun main(){
     println(shifr_Vigenera(origin,abclist,our_key))
     println(decoding_Vigener(shifr_Vigenera(origin,abclist,our_key),abclist,our_key))
     println("-----------------------------------------------------------------------")
+    println("The Boufort cipher")
     println(shifr_Boufora(origin,abclist,our_key))
     println(decooding_Boufora(shifr_Boufora(origin,abclist,our_key),abclist,our_key))
+
+
+
+
+    //Breacking Veginer
+    val shifrotext = shifr_Vigenera(origin,abclist,our_key)
+    val lenstring = shifrotext.length
+    val lenkey = readLine()!!.toInt()
+    val ic = 0.055
+    println("${shifrotext}, $lenstring, $lenkey")
+        //f[i]*(f[i]-1)
 
 
 
