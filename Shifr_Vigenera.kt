@@ -139,15 +139,30 @@ fun index(abc:ArrayList<Char>, our_text:String):Double{
 
 fun listik4(our_text:String,key:String){
     var abclist = arrayListOf<Char>()
-//    var textPart = Array(key.length,{CharArray()})
+    var k=0
+//    val middle = Array(key.length,{CharArray(our_text.length)})
+    val textPart = Array(key.length,{""})
     for(i in 0..key.length-1){
         for(j in i..our_text.length-1 step key.length){
             print(our_text[j])
-            abclist.add(our_text[j])
+            textPart[i] = textPart[i].plus(our_text[j])
+//            middle[i][k] = our_text[j]
+//            abclist.add(our_text[j])
+//            k+=1
+//            println(k)
         }
-        println(abclist[i])
-        var textPart = Array(key.length,{CharArray(abclist.size)})
-       // textPart[i] = abclist
+        println(textPart[i])
+        println(textPart[i].length)
+        println(textPart.size)
+//        var part = CharArray(k)
+//        for (j in 0..k-1){}
+//       k = 0
+//        println(middle[i])
+//        println(middle[i].size)
+//        textPart[i][k] = our_text[j]
+//        abclist.clear()
+       // var textPart = Array(key.length,{CharArray(abclist.size)})
+        //textPart[i] = abclist
     }
 }
 
