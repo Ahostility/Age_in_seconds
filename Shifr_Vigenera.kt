@@ -1,5 +1,7 @@
 import kotlin.math.abs
 
+//import kotlin.math.abs
+
 fun shifr_Vigenera(our_text:String,abc:Array<CharArray>,key:String):String {
     var shifrotext:String = ""
    // var arrlist = Array(26, {CharArray(26)})
@@ -117,53 +119,114 @@ fun decooding_Boufora(shifr:String,abc:Array<CharArray>,key:String):String{
     return our_text
 }
 
-fun index(abc:ArrayList<Char>, our_text:String):Double{
+fun indE(abc:ArrayList<Char>,shifr:String):Double{
+    println("--------------------------")
+    val listIndex = arrayListOf<Double>()
     var count:Double = 0.0
-    val countlist = arrayListOf<Double>()
     var indc:Double = 0.0
-    for(i in 0..abc.size-1) {
-        for(j in 0..our_text.length-1) {
-            if(abc[i] == our_text[j]){
-                count+=1.0
-            }
+    for (j in 0..shifr.length-1) {
+        if ('E' == shifr[j]) {
+            count += 1.0
         }
-//        println("${countlist[i]}, ${abc[i]}")
-//        indc+=countlist[i]*(countlist[i]-1)/(our_text.length*(our_text.length-1))//True 0.062 ~ 0.067
-        countlist.add(count)
-        indc+=count*(count-1)/(our_text.length*(our_text.length-1))//True 0.062 ~ 0.067
-        count = 0.0
     }
-//    println(indc)
+    indc += count * (count - 1) / (shifr.length * (shifr.length - 1))//True 0.062 ~ 0.067
+    count = 0.0
+    println("E equaly: ")
     return indc
 }
 
-fun listik4(our_text:String,key:String){
-    var abclist = arrayListOf<Char>()
-    var k=0
-//    val middle = Array(key.length,{CharArray(our_text.length)})
-    val textPart = Array(key.length,{""})
-    for(i in 0..key.length-1){
-        for(j in i..our_text.length-1 step key.length){
-            print(our_text[j])
-            textPart[i] = textPart[i].plus(our_text[j])
-//            middle[i][k] = our_text[j]
-//            abclist.add(our_text[j])
-//            k+=1
-//            println(k)
+fun listik4(shifr:String,keylen:Int):Array<String>{
+    val textPart = Array(keylen, {""})
+    for (i in 0..keylen-1){
+        for(j in i..shifr.length-1 step keylen) {
+//            print(our_text[j])
+            textPart[i] = textPart[i].plus(shifr[j])
         }
-        println(textPart[i])
-        println(textPart[i].length)
-        println(textPart.size)
-//        var part = CharArray(k)
-//        for (j in 0..k-1){}
-//       k = 0
-//        println(middle[i])
-//        println(middle[i].size)
-//        textPart[i][k] = our_text[j]
-//        abclist.clear()
-       // var textPart = Array(key.length,{CharArray(abclist.size)})
-        //textPart[i] = abclist
+//        println(textPart[i])//*
+//        println(textPart[i].length)//*
+//        println(textPart.size)//*
     }
+    return textPart
+}
+
+fun index(abc:ArrayList<Char>,listpart:Array<String>):ArrayList<Double>{
+    println("--------------------------")
+    val listIndex = arrayListOf<Double>()
+    var count:Double = 0.0
+    var indc:Double = 0.0
+    for(k in 0..listpart.size-1){
+        for(i in 0..abc.size-1) {
+//            print("${abc[i]} ")//Entering word and his equality
+            for (j in 0..listpart[k].length - 1) {
+                if (abc[i] == listpart[k][j]) {
+                    count += 1.0
+//                    println(listpart[k][j])
+                }
+            }
+//            println(count)
+            indc += count * (count - 1) / (listpart[k].length * (listpart[k].length - 1))//True 0.062 ~ 0.067
+            count = 0.0
+        }
+        listIndex.add(k,indc)
+//        println(listIndex[k])//*
+        indc = 0.0
+    }
+    println(listIndex)
+    return listIndex
+}
+
+fun checkId(listind:ArrayList<Double>):String {//This is awry(bent) function is working
+    var answer = "We may have found length our key ${listind.size}"
+    var i = 0
+    while(i < listind.size){
+        if (listind[i] < 0.058 || listind[i] > 0.068){
+            answer = "Error"
+            i = listind.size-1
+        }
+        i++
+    }
+    println(i)
+    return answer
+}
+
+fun findPartText(textpart:Array<String>,keyl:Int,abc:ArrayList<Char>):ArrayList<Char>{
+    var maxequsym = arrayListOf<Char>()
+    var entermax = 0
+    var count = 0//number enter symbol
+    var ind = 0//index max symbol in abc
+    for(i in 0..textpart.size-1) {
+        println(textpart[i])
+        for (j in 0..abc.size-1){
+            for(k in 0..textpart[i].length-1){
+                if(abc[j] == textpart[i][k]){
+                    count++
+                }
+            }
+            if (count > entermax){
+                entermax = count
+                ind = j
+            }
+            count = 0
+        }
+        entermax = 0
+        maxequsym.add(i,abc[ind])
+    }
+    println(maxequsym)
+    return maxequsym
+}
+
+fun findKey(listsym:ArrayList<Char>,abc: ArrayList<Char>):String{
+    var indk = 0
+    for(i in 0..listsym.size-1){
+        for (j in 0..abc.size-1){
+            if(listsym[i] == abc[j]){
+                if(listsym[i]> abc){}
+                indk = (26 - abs(j%26 - 5))%26
+                print(abc[indk+1])
+            }
+        }
+    }
+    return ""
 }
 
 fun main(){
@@ -190,11 +253,51 @@ fun main(){
             "ENYOUHAVEBIDYOURSERVANTONCEADIEUNORDAREIQUESTIONWITHMYJEALOUS" +
             "THOUGHTWHEREYOUMAYBEORYOURAFFAIRSSUPPOSEBUTLIKEASADSLAVESTAYA" +
             "NDTHINKOFNOUGHTSAVEWHEREYOUAREHOWHAPPYYOUMAKETHOSESOT" +
-            "RUEAFOOLISLOVETHATINYOURWILLTHOUGHYOUDOANYTHINGHETHINKSNOILL"
-    val our_key:String = "KEY"
+            "RUEAFOOLISLOVETHATINYOURWILLTHOUGHYOUDOANYTHINGHETHINKSNOILL"+
+            "CANSTTHOUOCRUELSAYILOVETHEENOT" +
+            "WHENIAGAINSTMYSELFWITHTHEEPARTAKE" +
+            "DOINOTTHINKONTHEEWHENIFORGOT" +
+            "AMOFMYSELFALLTYRANTFORTHYSAKE" +
+            "WHOHATETHTHEETHATIDOCALLMYFRIEND" +
+            "ONWHOMFROWNSTTHOUTHATIDOFAWNUPON" +
+            "NAYIFTHOULOURSTONMEDOINOTSPEND" +
+            "REVENGEUPONMYSELFWITHPRESENTMOAN" +
+            "WHATMERITDOIINMYSELFRESPECT" +
+            "THATISSOPROUDTHYSERVICETODESPISE" +
+            "WHENALLMYBESTDOTHWORSHIPTHYDEFECT" +
+            "COMMANDEDBYTHEMOTIONOFTHINEEYES" +
+            "BUTLOVEHATEONFORNOWIKNOWTHYMIND" +
+            "THOSETHATCANSEETHOULOVSTANDIAMBLIND"+
+            "MRHUNGERTONHERFATHERREALLYWASTHEMOSTTACTLESSPERSONUPONEARTHAFLUFFYFEATHERY" +
+            "UNTIDYCOCKATOOOFAMANPERFECTLYGOODNATUREDBUTABSOLUTELYCENTEREDUPONHISOWNSILLYSELF" +
+            "IFANYTHINGCOULDHAVEDRIVENMEFROMGLADYSITWOULDHAVEBEENTHETHOUGHTOFSUCHAFATHERINLAW" +
+            "IAMCONVINCEDTHATHEREALLYBELIEVEDINHISHEARTTHATICAMEROUNDTOTHECHESTNUTSTHREEDAYSAWEEK" +
+            "FORTHEPLEASUREOFHISCOMPANYANDVERYESPECIALLYTOHEARHISVIEWSUPONBIMETALLISMASUBJECTUPON" +
+            "WHICHHEWASBYWAYOFBEINGANAUTHORITY" +
+            "FORANHOURORMORETHATEVENINGILISTENEDTOHISMONOTONOUSCHIRRUPABOUTBADMONEYDRIVINGOUTGOOD" +
+            "THETOKENVALUEOFSILVERTHEDEPRECIATIONOFTHERUPEEANDTHETRUESTANDARDSOFEXCHANGE" +
+            "SUPPOSEHECRIEDWITHFEEBLEVIOLENCETHATALLTHEDEBTSINTHEWORLDWERECALLEDUP" +
+            "SIMULTANEOUSLYANDIMMEDIATEPAYMENTINSISTEDUPONWHATUNDEROURPRESENTCONDITIONSWOULDHAPPENTHEN" +
+            "IGAVETHESELFEVIDENTANSWERTHATISHOULDBEARUINEDMANUPONWHICHHEJUMPEDFROMHISCHAIR" +
+            "REPROVEDMEFORMYHABITUALLEVITYWHICHMADEITIMPOSSIBLEFORHIMTODISCUSSANYREASONABLESUBJECT" +
+            "INMYPRESENCEANDBOUNCEDOFFOUTOFTHEROOMTODRESSFORAMASONICMEETING" +
+            "ATLASTIWASALONEWITHGLADYSANDTHEMOMENTOFFATEHADCOMEALLTHATEVENINGIHADFELTLIKE" +
+            "THESOLDIERWHOAWAITSTHESIGNALWHICHWILLSENDHIMONAFORLORNHOPEHOPEOFVICTORYANDFEAR" +
+            "OFREPULSEALTERNATINGINHISMIND" +
+            "SHESATWITHTHATPROUDDELICATEPROFILEOFHERSOUTLINEDAGAINSTTHEREDCURTAINHOWBEAUTIFUL" +
+            "SHEWASANDYETHOWALOOFWEHADBEENFRIENDSQUITEGOODFRIENDSBUTNEVERCOULDIGET" +
+            "BEYONDTHESAMECOMRADESHIPWHICHIMIGHTHAVEESTABLISHEDWITHONEOFMYFELLOWREPORTERS" +
+            "UPONTHEGAZETTEPERFECTLYFRANKPERFECTLYKINDLYANDPERFECTLYUNSEXUALMYINSTINCTS" +
+            "AREALLAGAINSTAWOMANBEINGTOOFRANKANDATHEREASEWITHMEITISNOCOMPLIMENTTOA" +
+            "MANWHERETHEREALSEXFEELINGBEGINSTIMIDITYANDDISTRUSTAREITSCOMPANIONSHERITAGE" +
+            "FROMOLDWICKEDAYSWHENLOVEANDVIOLENCEWENTOFTENHANDINHANDTHEBENTHEADTHEAVERTED" +
+            "EYETHEFALTERINGVOICETHEWINCINGFIGURTHESEANDNOTTHEUNSHRINKINGGAZEANDFRANK" +
+            "REPLYARETHETRUESIGNALSOFPASSIONEVENINMYSHORTLIFEIHADLEARNEDASMUCHASTHATOR" +
+            "HADINHERITEDITINTHATRACEMEMORYWHICHWECALLINSTINCT"
+    val our_key:String = "ZERO"
 
 
-//    println("Shifr_Vigenera")
+    println("Shifr_Vigenera")
 //    println(shifr_Vigenera(origin,abclist,our_key))
 //    println(decoding_Vigener(shifr_Vigenera(origin,abclist,our_key),abclist,our_key))
     println("-----------------------------------------------------------------------")
@@ -204,45 +307,18 @@ fun main(){
 
 
 
-
     //Breacking Veginer
     val shifrotext = shifr_Vigenera(origin,abclist,our_key)
     val lenshifr = shifrotext.length
-    //val lenkey = readLine()!!.toInt()
-
+    var lenkey:Int = readLine()!!.toInt()
+    val indEx = 0.014632810828280014
+    println(indE(ABC,origin))//Search MaxIndex in origin text
     println("len our text ${origin.length}")
     print("Index C: ")
-    println(index(ABC,origin))
-    listik4(origin,our_key)
-//    println("${shifrotext}, $lenshifr, $lenkey")
+    listik4(shifrotext, lenkey)
+    println(index(ABC,listik4(shifrotext,lenkey)))
+    println(checkId(index(ABC,listik4(shifrotext,lenkey))))
+    println(findPartText(listik4(shifrotext,lenkey),lenkey,ABC))
+    println(findKey(findPartText(listik4(shifrotext,lenkey),lenkey,ABC),ABC))
 
-
-
-//    for(i in 0..abclist.size-1){
-//        for(j in 0..origin.length-1) {
-//            if (abclist[1][i] == origin[j]) {
-//                println("it's fact${abclist[1][i]}, ${origin[j]}, $j")
-//            }
-////            println("${abclist[1][i]}, ${origin[i]}")
-//        }
-//    }
-
-//    println("${'a'.toByte().toInt()},${'z'.toByte().toInt()}")
-//    println("122".toByte().toChar())
-//    var middle = arrayListOf<Char>()
-//    for(i in 0..abc.size-1){
-//        for(j in 0..abc.size-1){
-//            middle.add(abc[abs(i+j)%abc.size])
-//        }
-//           println(middle)
-//        middle.clear()
-//    }
-//    for(i in 0..abclist.size-1){
-//        for(j in 0..origin.length-1) {
-//            if (abclist[1][i] == origin[j]) {
-//                println("it's fact${abclist[1][i]}, ${origin[j]}, $j")
-//            }
-////            println("${abclist[1][i]}, ${origin[i]}")
-//        }
-//    }
 }
