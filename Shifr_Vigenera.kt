@@ -1,20 +1,12 @@
 import kotlin.math.abs
 
-//import kotlin.math.abs
-
 fun shifr_Vigenera(our_text:String,abc:Array<CharArray>,key:String):String {
-    var shifrotext:String = ""
-   // var arrlist = Array(26, {CharArray(26)})
-    var newkey:String = ""
+    var shifrotext = ""
+    var newkey = ""
     var k = 0
     var n = 0
     for(i in 0..our_text.length){
         newkey+=key[i%key.length]
-    }
-//    print("Us abc: ")
-//    println(abc[0])
-    for(i in 0..abc.size-1){
-//        println(abc[i])
     }
     while(n != our_text.length) {
         for (ind in 0..abc[0].size - 1) {
@@ -33,17 +25,12 @@ fun shifr_Vigenera(our_text:String,abc:Array<CharArray>,key:String):String {
 }
 
 fun decoding_Vigener(shifr:String,abc:Array<CharArray>,key:String):String{
-    var our_text:String = ""
-    var newkey:String = ""
+    var our_text = ""
+    var newkey = ""
     var k = 0
     var n = 0
     for(i in 0..shifr.length){
         newkey+=key[i%key.length]
-    }
-//    print("Us abc: ")
-//    println(abc[0])
-    for(i in 0..abc.size-1) {
-//        println(abc[i])
     }
     while(n != shifr.length) {
         for (ind in 0..abc[0].size - 1) {
@@ -62,18 +49,13 @@ fun decoding_Vigener(shifr:String,abc:Array<CharArray>,key:String):String{
 }
 
 fun shifr_Boufora(our_text:String,abc:Array<CharArray>,key:String):String{
-    var shifrotext:String = ""
+    var shifrotext = ""
     // var arrlist = Array(26, {CharArray(26)})
-    var newkey:String = ""
+    var newkey = ""
     var k = 0
     var n = 0
     for(i in 0..our_text.length){
         newkey+=key[i%key.length]
-    }
-//    print("Us abc: ")
-//    println(abc[0])
-    for(i in 0..abc.size-1){
-//        println(abc[i])
     }
     while(n != our_text.length) {
         for (ind in 0..abc[0].size - 1) {
@@ -91,17 +73,12 @@ fun shifr_Boufora(our_text:String,abc:Array<CharArray>,key:String):String{
 }
 
 fun decooding_Boufora(shifr:String,abc:Array<CharArray>,key:String):String{
-    var our_text:String = ""
-    var newkey:String = ""
+    var our_text = ""
+    var newkey = ""
     var k = 0
     var n = 0
     for(i in 0..shifr.length){
         newkey+=key[i%key.length]
-    }
-//    print("Us abc: ")
-//    println(abc[0])
-    for(i in 0..abc.size-1) {
-//        println(abc[i])
     }
     while(n != shifr.length) {
         for (str in 0..abc[0].size - 1) {
@@ -121,16 +98,15 @@ fun decooding_Boufora(shifr:String,abc:Array<CharArray>,key:String):String{
 
 fun indE(abc:ArrayList<Char>,shifr:String):Double{
     println("--------------------------")
-    val listIndex = arrayListOf<Double>()
-    var count:Double = 0.0
-    var indc:Double = 0.0
+//    val listIndex = arrayListOf<Double>()
+    var count = 0.0
+    var indc = 0.0
     for (j in 0..shifr.length-1) {
         if ('E' == shifr[j]) {
             count += 1.0
         }
     }
     indc += count * (count - 1) / (shifr.length * (shifr.length - 1))//True 0.062 ~ 0.067
-    count = 0.0
     println("E equaly: ")
     return indc
 }
@@ -139,7 +115,6 @@ fun listik4(shifr:String,keylen:Int):Array<String>{
     val textPart = Array(keylen, {""})
     for (i in 0..keylen-1){
         for(j in i..shifr.length-1 step keylen) {
-//            print(our_text[j])
             textPart[i] = textPart[i].plus(shifr[j])
         }
 //        println(textPart[i])//*
@@ -152,8 +127,8 @@ fun listik4(shifr:String,keylen:Int):Array<String>{
 fun index(abc:ArrayList<Char>,listpart:Array<String>):ArrayList<Double>{
     println("--------------------------")
     val listIndex = arrayListOf<Double>()
-    var count:Double = 0.0
-    var indc:Double = 0.0
+    var count = 0.0
+    var indc = 0.0
     for(k in 0..listpart.size-1){
         for(i in 0..abc.size-1) {
 //            print("${abc[i]} ")//Entering word and his equality
@@ -163,7 +138,6 @@ fun index(abc:ArrayList<Char>,listpart:Array<String>):ArrayList<Double>{
 //                    println(listpart[k][j])
                 }
             }
-//            println(count)
             indc += count * (count - 1) / (listpart[k].length * (listpart[k].length - 1))//True 0.062 ~ 0.067
             count = 0.0
         }
@@ -191,7 +165,7 @@ fun checkId(listind:ArrayList<Double>):String {//This is awry(bent) function is 
 
 fun findPartText(textpart:Array<String>,keyl:Int,abc:ArrayList<Char>):ArrayList<Char>{
     println("FindPartText")
-    var maxequsym = arrayListOf<Char>()
+    val maxequsym = arrayListOf<Char>()
     var entermax = 0
     var count = 0//number enter symbol
     var ind = 0//index max symbol in abc
@@ -218,13 +192,12 @@ fun findPartText(textpart:Array<String>,keyl:Int,abc:ArrayList<Char>):ArrayList<
 
 fun findKey(listsym:ArrayList<Char>,abc: ArrayList<Char>):String{
     println("FindKey")
-    var ind = 0
+    var ind:Int
     var foundKey = ""
     for(i in 0..listsym.size-1){
         for (j in 0..abc.size-1){
             if (listsym[i] == abc[j]){
                 ind = (j-4)%26
-//                println(ind)
                 if(ind < 0){
                     ind = (ind+26)%26
                 }
@@ -233,11 +206,10 @@ fun findKey(listsym:ArrayList<Char>,abc: ArrayList<Char>):String{
             }
         }
     }
+    println()
     return foundKey
 }
-//[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z]
 fun main(){
-    //val ind = 0.067
     val ABC = arrayListOf<Char>()//Create abc on ASCII
     val abclist = Array(26,{CharArray(26)})//Tabula Vigenera
     for(i in 65..90){
@@ -245,7 +217,6 @@ fun main(){
     }
     print("Our abc is: ")
     println(ABC)
-
     for(i in 0..abclist.size - 1) {
         for (j in 0..abclist.size - 1) {
             abclist[i][j] = ABC[(i + j) % ABC.size]
@@ -314,31 +285,27 @@ fun main(){
             "IDIDNTINVENTITIPLEADEDITSNATUREITSLOVE"+
             "WELLPERHAPSIFBOTHLOVEITMAYBEDIFFERENTIHAVENEVERFELTIT" +
             "BUTYOUMUSTYOUWITHYOURBEAUTYWITHYOURSOULOHGLADYSYOUWEREMADEFORLOVEYOUMUSTLOVE"
-    val our_key:String = "KEY"
-
+    val our_key = "SHIFROTEXT"//If your want to use of key whose len is more 10 word, we are get error
 
     println("Shifr_Vigenera")
-//    println(shifr_Vigenera(origin,abclist,our_key))
-//    println(decoding_Vigener(shifr_Vigenera(origin,abclist,our_key),abclist,our_key))
+    println(shifr_Vigenera(origin,abclist,our_key))
+    println(decoding_Vigener(shifr_Vigenera(origin,abclist,our_key),abclist,our_key))
     println("-----------------------------------------------------------------------")
-//    println("The Boufort cipher")
-//    println(shifr_Boufora(origin,abclist,our_key))
-//    println(decooding_Boufora(shifr_Boufora(origin,abclist,our_key),abclist,our_key))
-
-
-
+    println("The Boufort cipher")
+    println(shifr_Boufora(origin,abclist,our_key))
+    println(decooding_Boufora(shifr_Boufora(origin,abclist,our_key),abclist,our_key))
+    println("-----------------------------------------------------------------------")
     //Breacking Veginer
+    println("Breaking Vigener cipher")
     val shifrotext = shifr_Vigenera(origin,abclist,our_key)
-    val lenshifr = shifrotext.length
-    var lenkey:Int = readLine()!!.toInt()
-    val indEx = 0.014632810828280014
+    val lenkey:Int = readLine()!!.toInt()
+//    val indEx = 0.014632810828280014
     println(indE(ABC,origin))//Search MaxIndex in origin text
     println("len our text ${origin.length}")
     print("Index C: ")
-    listik4(shifrotext, lenkey)
-    println(index(ABC,listik4(shifrotext,lenkey)))
+//    listik4(shifrotext, lenkey)
+//    println(index(ABC,listik4(shifrotext,lenkey)))
     println(checkId(index(ABC,listik4(shifrotext,lenkey))))
-    println(findPartText(listik4(shifrotext,lenkey),lenkey,ABC))
+//    println(findPartText(listik4(shifrotext,lenkey),lenkey,ABC))
     println(findKey(findPartText(listik4(shifrotext,lenkey),lenkey,ABC),ABC))
-
 }
