@@ -15,6 +15,10 @@ fun _date(): LocalDate{//Функция принимает данные о да�
     return date
 }
 
+
+
+
+
 fun standDate(born:LocalDate/*,time:LocalDateTime*/):Int{
     val newday = LocalDate.now()
     var lastyear = newday
