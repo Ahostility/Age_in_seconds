@@ -211,6 +211,9 @@ fun findKey(listsym:ArrayList<Char>,abc: ArrayList<Char>):String{
     return foundKey
 }
 
+
+
+
 //[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z]
 fun main(){
     val ABC = arrayListOf<Char>()//Create abc on ASCII
